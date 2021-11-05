@@ -14,6 +14,7 @@ class Button
   
   boolean lastPressed;
   boolean currPressed;
+  int timePressed;
   
   int padding = 20;
   
@@ -44,30 +45,41 @@ class Button
   
   public void update()
   {    
-    lastPressed = currPressed;
-    currPressed = false;
-    
-    justPressed = false;
-    justReleased = false;
-    
-    currentColor = mainColor;
-    textColor = color(255);
-    
-    for (int i = 0; i < touches.length; i++) {
-      if(isInside((int)touches[i].x, (int)touches[i].y))
+    if (!menuOpened)
+    {
+      lastPressed = currPressed;
+      currPressed = false;
+      
+      justPressed = false;
+      justReleased = false;
+      
+      currentColor = mainColor;
+      textColor = color(255);
+      
+      for (int i = 0; i < touches.length; i++) {
+        if(isInside((int)touches[i].x, (int)touches[i].y))
+        {
+          currPressed = true;
+          currentColor = color(255, 255, 255);
+          textColor = color(0);
+          break;
+          
+        }
+      }
+      
+      if(lastPressed && !currPressed)
       {
-        currPressed = true;
-        currentColor = color(255, 255, 255);
-        textColor = color(0);
-        break;
+        justReleased = true;
+        timePressed = 0;
+      }
+  
+        
+      if(!lastPressed && currPressed)
+      {
+        justPressed = true;
+        timePressed = millis();
       }
     }
-    
-    if(lastPressed && !currPressed)
-      justReleased = true;
-      
-    if(!lastPressed && currPressed)
-      justPressed = true;
   }
   
   public boolean justPressed()
@@ -78,6 +90,16 @@ class Button
   public boolean justReleased()
   {
     return justReleased;
+  }
+
+  public boolean pressedMoreThanFiveSeconds()
+  {
+    return millis() - timePressed > 500 && timePressed != 0;
+  }
+  
+  public void resetTimer()
+  {
+    timePressed = 0;
   }
   
   public void draw()

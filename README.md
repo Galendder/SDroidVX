@@ -1,5 +1,4 @@
 # sdvx-mobile-controller
-THIS REPOSITORY IS A FORK OF https://github.com/danielpontello/sdvx-mobile-controller
 This repository contains an Android application that serves as a mobile controller for Sound Voltex-like games (like K-Shoot Mania).
 
 Games like these need special controllers to be played correctly, with things like analog knobs that can't be easily emulated with a mouse and keyboard. This project uses the flexibility of touch screens to simulate those controls on a mobile phone/tablet.

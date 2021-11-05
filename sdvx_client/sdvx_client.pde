@@ -1,3 +1,5 @@
+import controlP5.*;
+
 import netP5.*;
 import oscP5.*;
 
@@ -5,12 +7,24 @@ import oscP5.*;
 OscP5 oscP5;
 NetAddress serverAddress; 
 
+// Connection informations
+String serverIP;
+String serverPort;
+
+// Network event manager
+OSCManager oscManager;
+
+
 // Button objects
 Button btn_a, btn_b, btn_c, btn_d;
 Button fx_l, fx_r;
 Button start;
 
 Slider vol_l, vol_r;
+
+// Menu objects
+Menu_Settings menu;
+boolean menuOpened = false;
 
 // Button colors
 color mainBtnColor = color(45, 219, 184);
@@ -32,19 +46,38 @@ void setup()
   // oscP5 setup  
   // Change the IP address below to the IP of your computer
   oscP5 = new OscP5(this, 12000);
-  serverAddress = new NetAddress("192.168.15.10", 32000);
+  serverIP = "192.168.15.10";
+  serverPort = "32000";
+  serverAddress = new NetAddress(serverIP, Integer.parseInt(serverPort));
+  
+  // Network event manager
+  oscManager = new OSCManager();
   
   // Screen setup
   fullScreen();
   orientation(LANDSCAPE);
-  
-  
-  // Layout sizes
-  int mainBtnSize = width/4;
-  int margins = (height - mainBtnSize)/2;
+  frameRate(60);
   
   // Font
   mainFont = createFont("Teko-SemiBold.ttf", 36, true);
+  
+  InitButtons();
+
+  // Menu
+
+  menu = new Menu_Settings(this);
+  
+  lastRPos = 0;
+  currRPos = 0;
+  lastLPos = 0;
+  currLPos = 0;
+}
+
+void InitButtons()
+{  
+  // Layout sizes
+  int mainBtnSize = width/4;
+  int margins = (height - mainBtnSize)/2;
   
   // Main buttons
   btn_a = new Button(0, margins, mainBtnSize, mainBtnSize, mainBtnColor, "BTN-A");
@@ -62,189 +95,59 @@ void setup()
   // Sliders
   vol_l = new Slider(0, 0, (mainBtnSize*2)-(margins/4), margins, volLColor, "VOL-L");
   vol_r = new Slider((width/2)+(margins/4), 0, mainBtnSize*2-(margins/4), margins, volRColor, "VOL-R");
-  
-  lastRPos = 0;
-  currRPos = 0;
-  
-  lastLPos = 0;
-  currLPos = 0;
 }
 
 void draw()
 {
-  background(15, 28, 36);  
-  textFont(mainFont);
-  
-  // Update button states
-  // Main buttons
-  btn_a.update();    
-  btn_b.update();
-  btn_c.update();
-  btn_d.update();
-  
-  // FX Buttons
-  fx_l.update();
-  fx_r.update();
-  
-  // Volume Buttons
-  vol_l.update();
-  vol_r.update();
-  
-  start.update();
-  
-  // Send OSC messages
-  sendOscMessages();
-  
-  // Main buttons
-  btn_a.draw();    
-  btn_b.draw();
-  btn_c.draw();
-  btn_d.draw();
-  
-  // FX Buttons
-  fx_l.draw();
-  fx_r.draw();  
-  
-  // Volume Buttons
-  vol_l.draw();
-  vol_r.draw();
-  
-  // Draw everything
-  start.draw();
+    background(15, 28, 36);  
+    textFont(mainFont);
+    // If Menu is shown, we don't update controller buttons.
+    mainLoop();
+    if(start.pressedMoreThanFiveSeconds())
+    {
+        start.resetTimer();
+        menu.openSettingsMenu();
+    }
+
 }
 
-void sendOscMessages()
+void mainLoop()
 {
-  // Dispatch OSC messages for each of the buttons pressed.
-  if(btn_a.justPressed())
-  {
-    OscMessage msg = new OscMessage("/btn-a");
-    msg.add("P");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(btn_a.justReleased())
-  {
-    OscMessage msg = new OscMessage("/btn-a");
-    msg.add("R");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(btn_b.justPressed())
-  {
-    OscMessage msg = new OscMessage("/btn-b");
-    msg.add("P");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(btn_b.justReleased())
-  {
-    OscMessage msg = new OscMessage("/btn-b");
-    msg.add("R");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(btn_c.justPressed())
-  {
-    OscMessage msg = new OscMessage("/btn-c");
-    msg.add("P");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(btn_c.justReleased())
-  {
-    OscMessage msg = new OscMessage("/btn-c");
-    msg.add("R");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(btn_d.justPressed())
-  {
-    OscMessage msg = new OscMessage("/btn-d");
-    msg.add("P");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(btn_d.justReleased())
-  {
-    OscMessage msg = new OscMessage("/btn-d");
-    msg.add("R");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(fx_l.justPressed())
-  {
-    OscMessage msg = new OscMessage("/fx-l");
-    msg.add("P");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(fx_l.justReleased())
-  {
-    OscMessage msg = new OscMessage("/fx-l");
-    msg.add("R");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(fx_r.justPressed())
-  {
-    OscMessage msg = new OscMessage("/fx-r");
-    msg.add("P");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(fx_r.justReleased())
-  {
-    OscMessage msg = new OscMessage("/fx-r");
-    msg.add("R");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(start.justPressed())
-  {
-    OscMessage msg = new OscMessage("/start");
-    msg.add("P");
-    oscP5.send(msg, serverAddress);
-  }
-  
-  if(start.justReleased())
-  {
-    OscMessage msg = new OscMessage("/start");
-    msg.add("R");
-    oscP5.send(msg, serverAddress);
-  }
-
-
-  // In sliders, we send the current slider position as a float
-  if(vol_l.getValue() != 0)
-  {
-    lastLPos = currLPos;
-    currLPos = vol_l.getValue();
+// Update button states
+    // Main buttons
+    btn_a.update();    
+    btn_b.update();
+    btn_c.update();
+    btn_d.update();
     
-    if(currLPos != lastLPos)
-    {
-      OscMessage msg = new OscMessage("/vol-l");
-      msg.add((int)currLPos);
-      oscP5.send(msg, serverAddress);
-    }
-  } else {
-    lastLPos = 0;
-    currLPos = 0;
-  }
-  
-  if(vol_r.getValue() != 0)
-  {
-    lastRPos = currRPos;
-    currRPos = vol_r.getValue();
+    // FX Buttons
+    fx_l.update();
+    fx_r.update();
     
-    if(currRPos != lastRPos)
-    {
-      OscMessage msg = new OscMessage("/vol-r");
-      msg.add((int)currRPos);
-      oscP5.send(msg, serverAddress);
-    }
-  } else {
-    lastRPos = 0;
-    currRPos = 0;
-  }
+    // Volume Buttons
+    vol_l.update();
+    vol_r.update();
+    
+    start.update();
+  
+    
+    // Send OSC messages
+    oscManager.sendOscMessages();
+    
+    // Main buttons
+    btn_a.draw();    
+    btn_b.draw();
+    btn_c.draw();
+    btn_d.draw();
+    
+    // FX Buttons
+    fx_l.draw();
+    fx_r.draw();  
+    
+    // Volume Buttons
+    vol_l.draw();
+    vol_r.draw();
+    
+    // Draw everything
+    start.draw();
 }
