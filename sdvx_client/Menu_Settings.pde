@@ -114,14 +114,6 @@ class Menu_Settings
        .setGroup("ipGroup");
   }
   
-  public void refreshConfigField()
-  {
-    menu.serverIPField.setText(serverIP);
-    menu.serverIPField.draw();
-    menu.serverPortField.setText(serverPort);
-    menu.serverPortField.draw();
-  }
-  
   // Instanciate all controls callbacks
   private void InitCallBacks()
   {
@@ -181,5 +173,14 @@ class Menu_Settings
     menuOpened = false;
     
     println("CLOSING MENU");
+  }
+  
+    
+  public void refreshConfigField()
+  {
+    menu.serverIPField.setText(serverIP);
+    menu.serverIPField.draw();
+    menu.serverPortField.setText(serverPort);
+    menu.serverPortField.draw();
   }
 }

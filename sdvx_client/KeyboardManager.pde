@@ -12,16 +12,16 @@ void keyPressed()
   }
   if (keyCode == 67)
   {
-    if (menu.modifiedField == ModifiedField.IP)
+    if (menu.modifiedField == ModifiedField.IP && serverIP.length() > 0)
       serverIP = serverIP.substring(0, serverIP.length() - 2);
-    if (menu.modifiedField == ModifiedField.PORT)
+    if (menu.modifiedField == ModifiedField.PORT && serverPort.length() > 0)
       serverPort = serverPort.substring(0, serverPort.length() - 2);
   }
   if (keyCode == 66)
   {
     closeKeyboard();
   }
-  
+  menu.refreshConfigField();
   // Right now the only reason to open the keyboard is to update the IP or the port. We need to refresh those controls.
 
 }
