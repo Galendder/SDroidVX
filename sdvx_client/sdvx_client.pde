@@ -46,9 +46,10 @@ void setup()
   // oscP5 setup  
   // Change the IP address below to the IP of your computer
   oscP5 = new OscP5(this, 12000);
+  // I need to find how to save a configuration file with processing. Before that, you must re-enter your IP everytime you try it.
   serverIP = "192.168.15.10";
   serverPort = "32000";
-  serverAddress = new NetAddress(serverIP, Integer.parseInt(serverPort));
+  connectToServer();
   
   // Network event manager
   oscManager = new OSCManager();
@@ -64,7 +65,6 @@ void setup()
   InitButtons();
 
   // Menu
-
   menu = new Menu_Settings(this);
   
   lastRPos = 0;
@@ -95,6 +95,11 @@ void InitButtons()
   // Sliders
   vol_l = new Slider(0, 0, (mainBtnSize*2)-(margins/4), margins, volLColor, "VOL-L");
   vol_r = new Slider((width/2)+(margins/4), 0, mainBtnSize*2-(margins/4), margins, volRColor, "VOL-R");
+}
+
+void connectToServer()
+{
+  serverAddress = new NetAddress(serverIP, Integer.parseInt(serverPort));
 }
 
 void draw()

@@ -63,55 +63,57 @@ class Slider
   
   public void update()
   {    
-    lastPressed = currPressed;
-    currPressed = false;
-    
-    justPressed = false;
-    justReleased = false;
-    
-    currentColor = mainColor;
-    textColor = color(255);
-    
-    for (int i = 0; i < touches.length; i++) {
-      if(isInside((int)touches[i].x, (int)touches[i].y))
+    if (!menuOpened)
+    {
+      lastPressed = currPressed;
+      currPressed = false;
+      
+      justPressed = false;
+      justReleased = false;
+      
+      currentColor = mainColor;
+      textColor = color(255);
+      
+      for (int i = 0; i < touches.length; i++) {
+        if(isInside((int)touches[i].x, (int)touches[i].y))
+        {
+          currPressed = true;
+          currentColor = color(255, 255, 255);
+          textColor = color(0);
+          pressIndex = i;
+          break;
+        }
+      }
+      
+      if(lastPressed && !currPressed)
       {
-        currPressed = true;
-        currentColor = color(255, 255, 255);
-        textColor = color(0);
-        pressIndex = i;
-        break;
+        justReleased = true;
+        isPressed = false;
+        pressIndex = -1;
+        
+        lastValue = 0;
+        currValue = 0;
+      }
+        
+      if(!lastPressed && currPressed)
+      {
+        justPressed = true;
+        isPressed = true;
+        
+        currValue = (float)(currPressedPos - x) / (float)w;
+        lastValue = currValue;
+      }
+        
+      if(isPressed)
+      {
+        lastPressedPos = currPressedPos;
+        currPressedPos = (int)touches[pressIndex].x;
+        
+        lastValue = currValue;
+        currValue = (float)(currPressedPos - x) / (float)w;
+        delta = lastValue - currValue;
       }
     }
-    
-    if(lastPressed && !currPressed)
-    {
-      justReleased = true;
-      isPressed = false;
-      pressIndex = -1;
-      
-      lastValue = 0;
-      currValue = 0;
-    }
-      
-    if(!lastPressed && currPressed)
-    {
-      justPressed = true;
-      isPressed = true;
-      
-      currValue = (float)(currPressedPos - x) / (float)w;
-      lastValue = currValue;
-    }
-      
-    if(isPressed)
-    {
-      lastPressedPos = currPressedPos;
-      currPressedPos = (int)touches[pressIndex].x;
-      
-      lastValue = currValue;
-      currValue = (float)(currPressedPos - x) / (float)w;
-      delta = lastValue - currValue;
-    }
-    
   }
   
   public float getValue()
