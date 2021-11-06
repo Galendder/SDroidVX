@@ -29,6 +29,7 @@ namespace sdvx_server.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.startBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.lblPort = new MaterialSkin.Controls.MaterialLabel();
@@ -122,6 +123,7 @@ namespace sdvx_server.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "SDroidVX Controller Server";
             this.Shown += new System.EventHandler(this.MainForm_Shown);
