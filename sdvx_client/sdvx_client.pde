@@ -26,12 +26,6 @@ Slider vol_l, vol_r;
 Menu_Settings menu;
 boolean menuOpened = false;
 
-// Button colors
-color mainBtnColor;
-color fxBtnColor = color(201, 20, 51);
-color volLColor = color(107, 241, 253);
-color volRColor = color(255, 118, 255);
-
 // Application fonts
 PFont mainFont;
 
