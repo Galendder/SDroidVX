@@ -22,7 +22,7 @@ Download the client-side APK from the release and install it on your Android pho
 
 Download the server from the release and launch it on your computer.
 
-To run the server, you'll need the [vJoy Virtual Joystick Drivers](http://vjoystick.sourceforge.net/). Those drivers are used to create a virtual device that will be controlled by your mobile phone.
+To run the server, you'll need the [vJoy Virtual Joystick Drivers](https://github.com/jshafer817/vJoy). Those drivers are used to create a virtual device that will be controlled by your mobile phone.
 
 After installing vJoy, open up the "Configure vJoy" application and configure your first virtual joystick as follows:
 
