@@ -41,7 +41,7 @@ void setup()
   // Change the IP address below to the IP of your computer
   oscP5 = new OscP5(this, 12000);
   // I need to find how to save a configuration file with processing. Before that, you must re-enter your IP everytime you try it.
-  serverIP = "192.168.15.111";
+  serverIP = "192.168.0.111";
   serverPort = "32000";
   connectToServer();
   

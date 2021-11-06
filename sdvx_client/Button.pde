@@ -94,7 +94,7 @@ class Button
 
   public boolean pressedMoreThanFiveSeconds()
   {
-    return millis() - timePressed > 500 && timePressed != 0;
+    return millis() - timePressed > 5000 && timePressed != 0;
   }
   
   public void resetTimer()
