@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="">
-    <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="29"/>
-    <application android:icon="@mipmap/ic_launcher" android:label="">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="2" android:versionName="2.0" package="Galendder.SDroidVX">
+    <uses-sdk android:targetSdkVersion="29"/>
+    <application android:icon="@mipmap/ic_launcher" android:label="SDroidVX">
         <activity android:name=".MainActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
