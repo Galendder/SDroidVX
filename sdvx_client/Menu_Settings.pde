@@ -185,7 +185,8 @@ class Menu_Settings
   
   private void openIpConfigKeyboard()
   {
-    openKeyboard();
+    if (menuOpened)
+      openKeyboard();
   }
   
   public void openSettingsMenu()
