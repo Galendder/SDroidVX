@@ -4,6 +4,12 @@ This repository contains an Android application that serves as a mobile controll
 
 Games like these need special controllers to be played correctly, with things like analog knobs that can't be easily emulated with a mouse and keyboard. This project uses the flexibility of touch screens to simulate those controls on a mobile phone/tablet.
 
+## COMPATIBLE GAMES
+- Unnamed Sound Voltex Clone
+- K-ShootMania
+- DJMax Respect V
+- Osu!Mania
+
 ## NEW FEATURES
 - IP and port setter
 - Button color customization color picker
