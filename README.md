@@ -14,7 +14,7 @@ Games like these need special controllers to be played correctly, with things li
 - IP and port setter
 - Button color customization color picker
 - Background image [NOT AVAILABLE YET]
-- Graphical server-side interface [NOT AVAILABLE YET]
+- Graphical server-side interface
 
 ## Installing
 [COMING SOON]
@@ -26,7 +26,7 @@ To run the server, you'll need the [vJoy Virtual Joystick Drivers](https://githu
 
 After installing vJoy, open up the "Configure vJoy" application and configure your first virtual joystick as follows:
 
-![vJoy settings screen](/docs/vjoy.png?raw=true "Optional Title")
+![vJoy settings screen](/docs/vjoy.png?raw=true "VJoy configuration")
 
 ## How to Use
 ### Client
@@ -35,6 +35,8 @@ Open up the application on your mobile phone and you are ready to go. Make sure 
 Once you launched the app, hold start button for 5 seconds. You can now change the IP and the port of your server.
 
 ### Server
+
+![Server interface](/docs/server_side.png?raw=true "Server Interface")
 
 Open the server application and, if everything is working, it will show the message `[OSC] Now listening to messages.`. Try pressing some buttons on the mobile phone to test if the connection is working properly.
 
