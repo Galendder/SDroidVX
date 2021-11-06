@@ -18,6 +18,7 @@ class Menu_Settings
   controlP5.Button closeButton;
   controlP5.Button changeIpButton;
   controlP5.Button changePortButton;
+  controlP5.Button changeButtonColor;
   
   ColorPickerEX buttonColorPicker;
   
@@ -71,6 +72,10 @@ class Menu_Settings
      .setValue(mainBtnColor);
      buttonColorPicker.setItemSize(400,100);
      
+     changeButtonColor = cp5.addButton("APPLY NEW COLOR")
+     .setPosition(buttonColorPicker.getWidth() + 150, 400)
+     .setSize(width / 4, height / 15)
+     .setFont(createFont("Teko-SemiBold.ttf", 60, true));
      
     InitIpConfig();
      
@@ -143,7 +148,7 @@ class Menu_Settings
             // Workaround for the first call
             if(theEvent.getAction() == ControlP5.ACTION_ENTER || theEvent.getAction() == ControlP5.PRESSED)
             {
-              modifiedField = ModifiedField.PORT;
+              modifiedField = ModifiedField.IP;
               openIpConfigKeyboard();
             }
 
@@ -159,6 +164,18 @@ class Menu_Settings
             {
               modifiedField = ModifiedField.PORT;
               openIpConfigKeyboard();
+            }
+          }
+        }
+      );
+      
+      changeButtonColor.addCallback(new CallbackListener() {
+          public void controlEvent(CallbackEvent theEvent) 
+          {
+            // Workaround for the first call
+            if(theEvent.getAction() == ControlP5.ACTION_ENTER || theEvent.getAction() == ControlP5.PRESSED)
+            {
+              mainBtnColor = buttonColorPicker.getChoosenColor();
             }
           }
         }
@@ -179,8 +196,8 @@ class Menu_Settings
   
   public void hideSettingsMenu()
   {
-    mainBtnColor = buttonColorPicker.getChoosenColor();
     configButtons();
+    connectToServer();
     cp5.hide();
     menuOpened = false;
     
