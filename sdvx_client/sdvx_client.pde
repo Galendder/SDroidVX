@@ -27,7 +27,7 @@ Menu_Settings menu;
 boolean menuOpened = false;
 
 // Button colors
-color mainBtnColor = color(45, 219, 184);
+color mainBtnColor;
 color fxBtnColor = color(201, 20, 51);
 color volLColor = color(107, 241, 253);
 color volRColor = color(255, 118, 255);
@@ -62,7 +62,8 @@ void setup()
   // Font
   mainFont = createFont("Teko-SemiBold.ttf", 36, true);
   
-  InitButtons();
+  mainBtnColor = color(45, 219, 184);
+  configButtons();
 
   // Menu
   menu = new Menu_Settings(this);
@@ -73,7 +74,7 @@ void setup()
   currLPos = 0;
 }
 
-void InitButtons()
+void configButtons()
 {  
   // Layout sizes
   int mainBtnSize = width/4;
@@ -101,6 +102,7 @@ void connectToServer()
 {
   serverAddress = new NetAddress(serverIP, Integer.parseInt(serverPort));
 }
+
 
 void draw()
 {

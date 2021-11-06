@@ -19,6 +19,8 @@ class Menu_Settings
   controlP5.Button changeIpButton;
   controlP5.Button changePortButton;
   
+  ColorPickerEX buttonColorPicker;
+  
   Group menuGroup;
   Group ipGroup;
   
@@ -51,14 +53,24 @@ class Menu_Settings
     ipGroup =   cp5.addGroup("ipGroup")
                 .setPosition(0,0)
                 .setBackgroundHeight(2)
-                .setSize(width, height / 2)
+                .setSize(width, height / 4)
                 .setBackgroundColor(color(155, 0, 155, 100));
                     
     closeButton = cp5.addButton("SAVE AND CLOSE")
      .setValue(0)
      .setPosition(0,height - 200)
      .setSize(width, 200)
-     .setFont(createFont("Teko-SemiBold.ttf", 90, true));
+     .setFont(createFont("Teko-SemiBold.ttf", 80, true));
+     
+     buttonColorPicker = new ColorPickerEX(cp5, "BTNCOLORPICKER");
+     buttonColorPicker
+     .setSize(800, 800)
+     .setBarHeight(200)
+     .setFont(createFont("Teko-SemiBold.ttf", 80, true))
+     .setPosition(0, height / 4)
+     .setValue(mainBtnColor);
+     buttonColorPicker.setItemSize(400,100);
+     
      
     InitIpConfig();
      
@@ -84,24 +96,22 @@ class Menu_Settings
         
     changeIpButton = cp5.addButton("CHANGE IP")
      .setPosition(serverIPLabel.getWidth() + serverIPLabel.getWidth() + 150, 20)
-     .setSize(width / 10, height / 15)
+     .setSize(width / 8, height / 15)
      .setFont(createFont("Teko-SemiBold.ttf", 60, true))
      .setGroup("ipGroup");
      
-    // PORT
-    
-
      
+    // PORT
     serverPortLabel = cp5.addTextlabel("PORT")
                 .setText("PORT :") 
-                .setPosition(0, 150)
+                .setPosition(0, 170)
                 .setSize(width / 40, height / 4)
                 .setFont(createFont("Teko-SemiBold.ttf", 60, true))
                 .setGroup("ipGroup");
      
     serverPortField = cp5.addTextlabel("PORTLABEL")
                 .setText(serverPort)
-                .setPosition(serverPortLabel.getWidth() + 30, 150)
+                .setPosition(serverPortLabel.getWidth() + 30, 170)
                 .setColorBackground(color(155, 0, 155, 150))
                 .setSize(width / 4, height / 4)
                 .setFont(createFont("Teko-SemiBold.ttf", 60, true))
@@ -109,7 +119,7 @@ class Menu_Settings
                 
       changePortButton = cp5.addButton("CHANGE PORT")
        .setPosition(serverPortLabel.getWidth() + serverPortField.getWidth() + 150, 160)
-       .setSize(width / 10, height / 15)
+       .setSize(width / 8, height / 15)
        .setFont(createFont("Teko-SemiBold.ttf", 60, true))
        .setGroup("ipGroup");
   }
@@ -169,6 +179,8 @@ class Menu_Settings
   
   public void hideSettingsMenu()
   {
+    mainBtnColor = buttonColorPicker.getChoosenColor();
+    configButtons();
     cp5.hide();
     menuOpened = false;
     
@@ -183,4 +195,5 @@ class Menu_Settings
     menu.serverPortField.setText(serverPort);
     menu.serverPortField.draw();
   }
+  
 }
