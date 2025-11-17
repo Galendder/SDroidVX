@@ -1,3 +1,5 @@
+# THIS PROJECT IS ACTUALLY ABANDONNED, FEEL FREE TO FORK IT !
+
 # SDroidVX
 THIS REPOSITORY IS A FORK OF https://github.com/danielpontello/sdvx-mobile-controller
 This repository contains an Android application that serves as a mobile controller for Sound Voltex-like games (like K-Shoot Mania).
