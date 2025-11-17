@@ -19,7 +19,6 @@ Games like these need special controllers to be played correctly, with things li
 - Graphical server-side interface
 
 ## Installing
-[COMING SOON]
 Download the client-side APK from the release and install it on your Android phone/tablet
 
 Download the server from the release and launch it on your computer.
